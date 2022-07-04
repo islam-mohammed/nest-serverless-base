@@ -1,0 +1,30 @@
+service: sls-user-auth-service
+useDonenv: ture
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: eu-west-1
+  profile: default
+  memorySize: 256
+  stage: ${opt:stage, 'dev'}
+  environment:
+    DB_URI: ${env:DB_URI}
+    DB_NAME: ${env:DB_NAME}
+
+functions:
+  main:
+    handler: dist/main.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
+custom:
+  serverless-offline:
+    noPrependStageInUrl: true
