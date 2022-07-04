@@ -1,5 +1,5 @@
 service: sls-user-auth-service
-useDonenv: ture
+useDotenv: true
 
 plugins:
   - serverless-offline
